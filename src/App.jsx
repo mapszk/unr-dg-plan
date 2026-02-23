@@ -23,7 +23,7 @@ function getTypeClasses(subject) {
 }
 
 export default function App() {
-  const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedSubjects, setSelectedSubjects] = useState([]);
 
   const subjectsByYear = useMemo(
     () =>
@@ -45,25 +45,57 @@ export default function App() {
     []
   );
 
-  const unlockedSubjects = selectedSubject ? unlocksMap[selectedSubject] ?? [] : [];
+  const selectedSet = useMemo(() => new Set(selectedSubjects), [selectedSubjects]);
+
+  const unlockedSubjects = useMemo(() => {
+    const unlockedSet = new Set();
+
+    selectedSubjects.forEach((selectedSubject) => {
+      (unlocksMap[selectedSubject] ?? []).forEach((subject) => {
+        unlockedSet.add(subject);
+      });
+    });
+
+    return [...unlockedSet];
+  }, [selectedSubjects, unlocksMap]);
+
+  const unlockedSet = useMemo(() => new Set(unlockedSubjects), [unlockedSubjects]);
+
+  function toggleSubject(subjectName) {
+    setSelectedSubjects((prev) => {
+      if (prev.includes(subjectName)) {
+        return prev.filter((name) => name !== subjectName);
+      }
+
+      return [...prev, subjectName];
+    });
+  }
 
   return (
     <main className="min-h-screen space-y-4 bg-slate-100 p-4 text-slate-900 md:p-8">
       <header className="space-y-1">
         <h1 className="text-2xl font-bold md:text-3xl">Plan de Estudios · Diseño Gráfico</h1>
-        <p className="text-slate-700">Hacé click en una materia para ver qué materias se desbloquean una vez aprobada.</p>
+        <p className="text-slate-700">
+          Hacé click en una o varias materias para ver qué materias se desbloquean una vez aprobadas.
+        </p>
       </header>
 
       <section className="flex flex-wrap gap-2" aria-label="Leyenda de estados y tipos de cursado">
-        <Badge variant="outline" className="border-l-[6px] border-l-blue-600">Anual</Badge>
-        <Badge variant="outline" className="border-l-[6px] border-l-violet-500">Cuatrimestral 1°</Badge>
-        <Badge variant="outline" className="border-l-[6px] border-l-emerald-600">Cuatrimestral 2°</Badge>
+        <Badge variant="outline" className="border-l-[6px] border-l-blue-600">
+          Anual
+        </Badge>
+        <Badge variant="outline" className="border-l-[6px] border-l-violet-500">
+          Cuatrimestral 1°
+        </Badge>
+        <Badge variant="outline" className="border-l-[6px] border-l-emerald-600">
+          Cuatrimestral 2°
+        </Badge>
         <Badge className="border-amber-300 bg-amber-100 text-amber-900">Seleccionada</Badge>
         <Badge className="border-emerald-300 bg-emerald-100 text-emerald-900">Desbloqueada</Badge>
       </section>
 
       <div>
-        <Button type="button" onClick={() => setSelectedSubject(null)} disabled={!selectedSubject}>
+        <Button type="button" onClick={() => setSelectedSubjects([])} disabled={selectedSubjects.length === 0}>
           Limpiar selección
         </Button>
       </div>
@@ -80,9 +112,10 @@ export default function App() {
             <CardContent>
               <div className="flex flex-col gap-2.5">
                 {(subjectsByYear[year] ?? []).map((subject) => {
-                  const isSelected = selectedSubject === subject.name;
-                  const isUnlocked = unlockedSubjects.includes(subject.name);
-                  const isDimmed = selectedSubject && !isSelected && !isUnlocked;
+                  const isSelected = selectedSet.has(subject.name);
+                  const isUnlocked = unlockedSet.has(subject.name);
+                  const hasSelection = selectedSubjects.length > 0;
+                  const isDimmed = hasSelection && !isSelected && !isUnlocked;
 
                   return (
                     <Button
@@ -90,7 +123,7 @@ export default function App() {
                       type="button"
                       variant="outline"
                       aria-pressed={isSelected}
-                      onClick={() => setSelectedSubject((prev) => (prev === subject.name ? null : subject.name))}
+                      onClick={() => toggleSubject(subject.name)}
                       className={cn(
                         'h-auto w-full justify-start rounded-lg border-l-[7px] p-3 text-left transition',
                         'whitespace-normal hover:-translate-y-0.5 hover:shadow-md',
@@ -114,15 +147,20 @@ export default function App() {
         ))}
       </section>
 
-      {selectedSubject && (
+      {selectedSubjects.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Materia seleccionada</CardTitle>
+            <CardTitle className="text-base">Materias seleccionadas</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{selectedSubject}</p>
-            <p className="mt-1 text-slate-700">
-              Desbloquea: <strong>{unlockedSubjects.length}</strong> materia(s)
+            <p className="font-medium">{selectedSubjects.length} materia(s) seleccionada(s)</p>
+            <ul className="mt-2 list-inside list-disc text-sm text-slate-700">
+              {selectedSubjects.map((subject) => (
+                <li key={subject}>{subject}</li>
+              ))}
+            </ul>
+            <p className="mt-3 text-slate-700">
+              Desbloquean en conjunto: <strong>{unlockedSubjects.length}</strong> materia(s)
             </p>
           </CardContent>
         </Card>
