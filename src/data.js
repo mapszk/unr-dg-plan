@@ -1,0 +1,81 @@
+export const subjects = [
+  { name: 'Taller de Diseño Gráfico I', year: 1, type: 'anual', term: null, correlatives: [] },
+  { name: 'Tipografía I', year: 1, type: 'anual', term: null, correlatives: [] },
+  { name: 'Medios Expresivos', year: 1, type: 'cuatrimestral', term: 1, correlatives: [] },
+  { name: 'Historia del Diseño', year: 1, type: 'cuatrimestral', term: 1, correlatives: [] },
+  { name: 'Semiótica y Cultura Visual', year: 1, type: 'cuatrimestral', term: 1, correlatives: [] },
+  { name: 'Morfología I', year: 1, type: 'cuatrimestral', term: 2, correlatives: [] },
+  { name: 'Historia del Diseño Gráfico', year: 1, type: 'cuatrimestral', term: 2, correlatives: ['Historia del Diseño'] },
+  { name: 'Comunicación', year: 1, type: 'cuatrimestral', term: 2, correlatives: ['Semiótica y Cultura Visual'] },
+  { name: 'Taller de Escritura', year: 1, type: 'cuatrimestral', term: 2, correlatives: [] },
+  { name: 'Taller de Diseño Gráfico II', year: 2, type: 'anual', term: null, correlatives: ['Taller de Diseño Gráfico I'] },
+  { name: 'Morfología II', year: 2, type: 'anual', term: null, correlatives: ['Morfología I'] },
+  { name: 'Tipografía II', year: 2, type: 'anual', term: null, correlatives: ['Tipografía I'] },
+  { name: 'Tecnología', year: 2, type: 'anual', term: null, correlatives: [] },
+  {
+    name: 'Escenarios contemporáneos de la Comunicación',
+    year: 2,
+    type: 'cuatrimestral',
+    term: 1,
+    correlatives: ['Semiótica y Cultura Visual', 'Comunicación']
+  },
+  { name: 'Ciudadanía, diversidad cultural y DDHH', year: 2, type: 'cuatrimestral', term: 2, correlatives: [] },
+  { name: 'Taller de Diseño Gráfico III', year: 3, type: 'anual', term: null, correlatives: ['Taller de Diseño Gráfico II'] },
+  {
+    name: 'Laboratorio de gráfica, sonido y movimiento',
+    year: 3,
+    type: 'anual',
+    term: null,
+    correlatives: ['Tecnología']
+  },
+  { name: 'Tipografía III', year: 3, type: 'anual', term: null, correlatives: ['Tipografía II'] },
+  { name: 'Práctica Social Educativa', year: 3, type: 'anual', term: null, correlatives: [] },
+  { name: 'Práctica Profesional Supervisada', year: 3, type: 'anual', term: null, correlatives: [] },
+  { name: 'Tecnología, Diseño y Sociedad', year: 3, type: 'cuatrimestral', term: 1, correlatives: [] },
+  { name: 'Extensión, territorio y organizaciones', year: 3, type: 'cuatrimestral', term: 1, correlatives: [] },
+  { name: 'Espacio Curricular Optativo I', year: 3, type: 'cuatrimestral', term: 1, correlatives: [] },
+  { name: 'Gestión empresarial y mercadotecnia', year: 3, type: 'cuatrimestral', term: 2, correlatives: [] },
+  { name: 'Legislación y práctica profesional', year: 3, type: 'cuatrimestral', term: 2, correlatives: [] },
+  { name: 'Espacio Curricular Optativo II', year: 3, type: 'cuatrimestral', term: 2, correlatives: [] },
+  {
+    name: 'Taller de Proyecto Final',
+    year: 4,
+    type: 'anual',
+    term: null,
+    correlatives: [
+      'Taller de Escritura',
+      'Historia del Diseño Gráfico',
+      'Morfología II',
+      'Escenarios contemporáneos de la Comunicación',
+      'Ciudadanía, diversidad cultural y DDHH',
+      'Taller de Diseño Gráfico III',
+      'Laboratorio de gráfica, sonido y movimiento',
+      'Tipografía III',
+      'Tecnología, Diseño y Sociedad',
+      'Extensión, territorio y organizaciones',
+      'Gestión empresarial y mercadotecnia',
+      'Legislación y práctica profesional',
+      'Espacio Curricular Optativo I',
+      'Espacio Curricular Optativo II'
+    ]
+  },
+  { name: 'Diseño Estratégico y Sustentable', year: 4, type: 'anual', term: null, correlatives: ['Taller de Diseño Gráfico III'] },
+  {
+    name: 'Teoría y Crítica del Diseño',
+    year: 4,
+    type: 'anual',
+    term: null,
+    correlatives: ['Taller de Escritura', 'Historia del Diseño Gráfico', 'Escenarios contemporáneos de la Comunicación']
+  },
+  {
+    name: 'Laboratorio de multiplataformas y transmedia',
+    year: 4,
+    type: 'anual',
+    term: null,
+    correlatives: ['Laboratorio de gráfica, sonido y movimiento']
+  },
+  { name: 'Diseño Editorial', year: 4, type: 'anual', term: null, correlatives: ['Taller de Diseño Gráfico III', 'Tipografía III'] },
+  { name: 'Metodología de la Investigación en Diseño', year: 4, type: 'cuatrimestral', term: 1, correlatives: [] },
+  { name: 'Espacio Curricular Optativo III', year: 4, type: 'cuatrimestral', term: 2, correlatives: [] },
+  { name: 'Espacio Curricular Optativo IV', year: 4, type: 'cuatrimestral', term: 2, correlatives: [] }
+];
