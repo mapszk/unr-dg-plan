@@ -156,7 +156,7 @@ export default function App() {
                       aria-pressed={isSelected}
                       onClick={() => toggleSubject(subject.name)}
                       className={cn(
-                        "h-auto w-full justify-start rounded-lg border-l-[7px] p-3 text-left transition flex-col",
+                        "h-auto w-full min-w-0 justify-start rounded-lg border-l-[7px] p-3 text-left transition flex flex-col",
                         "whitespace-normal hover:-translate-y-0.5 hover:shadow-md",
                         getTypeClasses(subject),
                         isSelected && "bg-amber-50 ring-2 ring-amber-300",
@@ -164,7 +164,7 @@ export default function App() {
                         isDimmed && "opacity-45",
                       )}
                     >
-                      <span className="block font-semibold leading-snug">
+                      <span className="w-full min-w-0 text-center font-semibold leading-snug break-words whitespace-normal">
                         {subject.name}
                       </span>
                       <span className="mt-1 block text-sm">
